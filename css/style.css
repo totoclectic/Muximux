@@ -124,6 +124,7 @@ Main components
     width: 30px;
     text-align: center;
     font-size: 1.6rem;
+    text-transform: lowercase;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-weight: 700;
@@ -159,7 +160,7 @@ Main components
         width: 100%;
         text-align: center;
         font-size: 1.6rem;
-        padding: 0 2em 0 2em;
+        padding: 0 1.5em 0 1.5em;
     }
 
     .cd-tabs-navigation a.selected:not(#reload) {
@@ -381,6 +382,18 @@ input[type='button']:hover {
     background: #003147;
 }
 
+input.appName {
+    width: 150px;
+}
+
+input.appDesc {
+    font-size: 0.9em;
+}
+
+input#titleInput {
+    width: 400px;
+}
+
 .checkbox, .radio {
     display: inline-block;
 }
@@ -432,7 +445,7 @@ input[type='button']:hover {
     padding: 10px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15px;
+    margin-top: 20px;
     background: #f5f6f7;
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;

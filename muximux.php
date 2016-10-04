@@ -109,7 +109,7 @@ function parse_ini()
 
     if ($config->get('general', 'updatepopup', 'false') == "true") {
         $showUpdates = "<div><label for='updatepopupCheckbox'>Enable update poups:</label> <input id='updatepopupCheckbox' class='general-value' name='general-updatepopup' type='checkbox' checked></div>";
-    } else { $showUpdates = "<div><label for='updatepopupCheckbox'>Enable update poups:</label> <input id='updatepopupCheckbox' class='general-value' name='general-updatepopup' type='checkbox'></div>"; }
+    } else { $showUpdates = "<div><label for='updatepopupCheckbox'>Enable update popups:</label> <input id='updatepopupCheckbox' class='general-value' name='general-updatepopup' type='checkbox'></div>"; }
 
     $pageOutput = "<form>";
 
@@ -138,8 +138,10 @@ function parse_ini()
                     $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >URL:</label><input class='" . $section . "-value' name='" . $section . "-" . $key . "' type='text' value='" . $val . "'></div>";
                 else if ($key == "name") {
                     $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >Name:</label><input class='appName " . $section . "-value' was='" . $section . "' name='" . $section . "-" . $key . "' type='text' value='" . $val . "'></div>";
+                } else if ($key == "desc") {
+                    $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >Desc:</label><input class='appDesc " . $section . "-value' was='" . $section . "' name='" . $section . "-" . $key . "' type='text' value='" . $val . "'></div>";
                 } else if ($key == "icon") {
-                    $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >Icon: </label><button role=\"iconpicker\" class=\"iconpicker btn btn-default\" name='" . $section . "-" . $key . "' data-rows=\"4\" data-cols=\"6\" data-search=\"true\" data-search-text=\"Search...\" data-iconset=\"fontawesome\" data-placement=\"left\" data-icon=\"" . $val . "\"></button></div>";
+                    $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >Icon: </label><button role=\"iconpicker\" class=\"iconpicker btn btn-default\" name='" . $section . "-" . $key . "' data-rows=\"4\" data-cols=\"6\" data-search=\"true\" data-search-text=\"Search...\" data-iconset=\"fontawesome\" data-placement=\"left\" data-icon=\"" . $val . "\"></button></div><br/>";
                 } elseif ($key == "default") {
                     $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >Default:</label><input type='radio' class='radio " . $section . "-value' id='" . $section . "-" . $key . "' name='" . $section . "-" . $key . "'";
                     if ($val == "true")
@@ -154,6 +156,12 @@ function parse_ini()
                         $pageOutput .= "></div>";
                 } else if ($key == "landingpage") {
                     $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >Enable landing page: </label><input class='checkbox " . $section . "-value' id='" . $section . "-" . $key . "' name='" . $section . "-" . $key . "' type='checkbox' ";
+                    if ($val == "true")
+                        $pageOutput .= " checked></div>";
+                    else
+                        $pageOutput .= "></div>";
+                } else if ($key == "newtab") {
+                    $pageOutput .= "<div><label for='" . $section . "-" . $key . "' >Open new tab: </label><input class='checkbox " . $section . "-value' id='" . $section . "-" . $key . "' name='" . $section . "-" . $key . "' type='checkbox' ";
                     if ($val == "true")
                         $pageOutput .= " checked></div>";
                     else
@@ -267,6 +275,7 @@ function frameContent()
 function landingPage($keyname)
 {
     $config = new Config_Lite(CONFIG);
+    if ($config->get($keyname, 'newtab') == "true") { $target="_blank" ; } else { $target="_self" ; }
     $item = "
     <html lang=\"en\">
     <head>
@@ -278,7 +287,8 @@ function landingPage($keyname)
         <div class=\"heading\">
             <h2><span class=\"fa " . $config->get($keyname, 'icon') . " fa-3x\"></span></h2>
             <section>
-                <a href=\"" . $config->get($keyname, 'url') . "\" target=\"_self\" title=\"Launch " . $config->get($keyname, 'name') . "!\"><button class=\"float\">Launch " . $config->get($keyname, 'name') . "</button></a>
+                <div class=\"appdesc\">" . $config->get($keyname, 'desc') . "</div>
+                <a href=\"" . $config->get($keyname, 'url') . "\" target=\"" . $target . "\" title=\"Launch " . $config->get($keyname, 'name') . "!\"><button class=\"float\">Launch " . $config->get($keyname, 'name') . "</button></a>
             </section>
         </div>
      </div>

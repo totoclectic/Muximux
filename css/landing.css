@@ -6,8 +6,6 @@
   padding: 0;
 }
 
-.test {}
-
 html {
   background: url(../images/landing-bg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -22,6 +20,14 @@ body {
 
 body, input, button {
   font-family: 'PT Sans', sans-serif;
+}
+
+.appdesc {
+  font-size: 1em;
+  letter-spacing: 2px;
+  color: #cccccc;
+  line-height: 1.2em;
+  margin: 10px 0;
 }
 
 .login {
