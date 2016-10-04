@@ -349,6 +349,7 @@ input[type='text'] {
     border-radius: 5px 5px 5px 5px;
     margin: 5px 5px 5px 10px;
     padding: 2px;
+    font-size: 0.9em;
 }
 
 input[type='text'], select {
@@ -387,7 +388,7 @@ input.appName {
 }
 
 input.appDesc {
-    font-size: 0.9em;
+    width: 400px;
 }
 
 input#titleInput {
