@@ -2,19 +2,38 @@
 /*
 * DO NOT CHANGE THIS FILE!
 */
-define('CONFIG', 'settings.ini.php');
-define('CONFIGEXAMPLE', 'settings.ini.php-example');
+
+define('ABSPATH', str_replace('\\', '/', dirname(__FILE__)) . '/');
+
+$tempPath1 = explode('/', str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME'])));
+$tempPath2 = explode('/', substr(ABSPATH, 0, -1));
+$tempPath3 = explode('/', str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])));
+
+for ($i = count($tempPath2); $i < count($tempPath1); $i++)
+    array_pop ($tempPath3);
+
+$urladdr = $_SERVER['HTTP_HOST'] . implode('/', $tempPath3);
+
+if ($urladdr{strlen($urladdr) - 1}== '/')
+    define('URLADDR', 'http://' . $urladdr);
+else
+    define('URLADDR', 'http://' . $urladdr . '/');
+
+unset($tempPath1, $tempPath2, $tempPath3, $urladdr);
+
+// optional: can load another settings file : http://<url>/<set>
+if (isset($_GET['setid'])) { $set = $_GET['setid']; }
+else { $set = "default"; }
+
+// when saving settings, define what set
+if (isset($_POST['general-set'])) { $set = $_POST['general-set']; }
+
+define('SET', $set);
+define('CONFIG', 'sets/set-'.SET.'.ini.php');
+define('CONFIGEXAMPLE', 'sets/set-example.ini.php');
 define('SECRET', 'secret.txt');
 require dirname(__FILE__) . '/vendor/autoload.php';
 
-// Check if this is an old installation that needs upgrading.
-if (file_exists('config.ini.php')) {
-    copy('config.ini.php', 'backup.ini.php');
-    unlink('config.ini.php');
-    $upgrade = true;
-} else {
-    $upgrade = false;
-}
 
 function openFile($file, $mode) {
     if ((file_exists($file) && (!is_writable(dirname($file)) || !is_writable($file))) || !is_writable(dirname($file))) { // If file exists, check both file and directory writeable, else check that the directory is writeable.
@@ -34,6 +53,7 @@ function openFile($file, $mode) {
 }
 
 function createSecret() {
+
     $text = uniqid("muximux-", true);
     $file = openFile(SECRET, "w");
     fwrite($file, $text);
@@ -54,6 +74,7 @@ if (sizeof($_POST) > 0) {
 
 function write_ini()
 {
+
     unlink(CONFIG);
 
     $config = new Config_Lite(CONFIG);
@@ -72,6 +93,8 @@ function write_ini()
 
     $cache_new = "; <?php die(\"Access denied\"); ?>"; // Adds this to the top of the config so that PHP kills the execution if someone tries to request the config-file remotely.
     $file = CONFIG; // the file to which $cache_new gets prepended
+
+
 
     $handle = openFile($file, "r+");
     $len = strlen($cache_new);
@@ -99,6 +122,8 @@ function parse_ini()
     }
     $config = new Config_Lite(CONFIG);
 
+
+
     if ($config->get('general', 'branch', 'master') == "master") {
         $master = "<option value=\"master\" selected>master</option>";
     } else { $master = "<option value=\"master\">master</option>"; }
@@ -113,7 +138,7 @@ function parse_ini()
 
     $pageOutput = "<form>";
 
-    $pageOutput .= "<div class='applicationContainer' style='cursor:default;'><h2>General</h2><label for='titleInput'>Title: </label><input id='titleInput' type='text' class='general-value' name='general-title' value='" . $config->get('general', 'title', 'Muximux - Application Management Console') . "'>";
+    $pageOutput .= "<div class='applicationContainer' style='cursor:default;'><h2>General</h2><label for='titleInput'>Title: </label><input id='titleInput' type='text' class='general-value' name='general-title' value='" . $config->get('general', 'title', 'Muximux - Application Management Console') . "'> <label for='setInput'>Set: </label><input id='setInput' type='text' class='general-value' name='general-set' value='".SET."'>";
     $pageOutput .= "<label for=\"branch\">Branch tracking:</label><select id=\"branch\" name='general-branch'>$master $develop</select>";
     $pageOutput .= "<div><label for='dropdownCheckbox'>Enable Dropdown:</label> <input id='dropdownCheckbox' class='checkbox general-value' name='general-enabledropdown' type='checkbox' ";
     if ($config->get('general', 'enabledropdown') == true)
@@ -127,7 +152,7 @@ function parse_ini()
         "<input type='hidden' class='settings-value' name='settings-url' value='muximux.php'>" .
         "<input type='hidden' class='settings-value' name='settings-landingpage' value='false'>" .
         "<input type='hidden' class='settings-value' name='settings-icon' value='fa-cog'>" .
-        "<input type='hidden' class='settings-value' name='settings-dd' value='true'>";
+        "<input type='hidden' class='settings-value' name='settings-dd' value='true'>" ;
 
     $pageOutput .= "<div id='sortable'>";
     foreach ($config as $section => $name) {
@@ -323,6 +348,7 @@ if (isset($_GET['landing'])) {
 if (isset($_GET['get']) && $_GET['get'] == 'secret') {
         $secret = file_get_contents(SECRET) or die("Unable to open " . SECRET);
         echo $secret;
+
         die();
 }
 
@@ -412,6 +438,6 @@ if(isset($_GET['secret']) && $_GET['secret'] == file_get_contents(SECRET)) {
 // End protected get-calls
 
 
-if(empty($_GET)) {
+if (empty($_GET)) {
     createSecret();
 }

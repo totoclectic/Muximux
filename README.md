@@ -12,8 +12,9 @@ With Muximux you don't need to keep multiple tabs open, or bookmark the URL to a
 [More screenshots](#screenshots)
 
 ## Changelog / totoclectic's edits
-* Added optional apps short descriptions on landing pages
-* Added option to open the app in the new tab (when forbidden by X-Frame-Options)
+* Create and use multiple links sets by just adding a word in the url (example: http://<url>/<set>)
+* Optional apps short descriptions on landing pages
+* Option to open the app in the new tab (when forbidden by X-Frame-Options)
 * Cosmetic edits, typos fixes
 
 > More infos : https://github.com/mescon/Muximux

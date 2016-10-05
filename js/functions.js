@@ -136,10 +136,12 @@ function settingsEventHandlers() {
             '<div class="applicationContainer newApp" id="' + rand + 'newApplication"><span class="bars fa fa-bars"></span>' +
             '<div><label>Name:</label><input class="appName ' + rand + 'newApplication-value" name="' + rand + 'newApplication-name" type="text" value=""></div>' +
             '<div><label>URL:</label><input class="' + rand + 'newApplication-value" name="' + rand + 'newApplication-url" type="text" value=""></div>' +
+            '<div><label>Desc:</label><input class="appDesc ' + rand + 'newApplication-value" name="' + rand + 'newApplication-desc" type="text" value=""></div>' +
             '<div><label>Icon:</label><button class=\"' + rand + 'newApplication-value iconpicker btn btn-default\" name="' + rand + 'newApplication-icon"  data-iconset=\"fontawesome\" data-icon=\"\"></button></div>' +
             '<div><label for="' + rand + 'newApplication-enabled">Enable:</label><input class="checkbox ' + rand + 'newApplication-value" id="' + rand + 'newApplication-enabled" name="' + rand + 'newApplication-enabled" type="checkbox" checked></div>' +
             '<div><label for="' + rand + 'newApplication-default">Default:</label><input class="radio ' + rand + 'newApplication-value" id="' + rand + 'newApplication-default" name="' + rand + 'newApplication-default" type="radio"></div>' +
             '<div><label for="' + rand + 'newApplication-landingpage">Enable landing page:</label><input class="checkbox ' + rand + 'newApplication-value" id="' + rand + 'newApplication-landingpage" name="newApplication-landingpage" type="checkbox"></div>' +
+            '<div><label for="' + rand + 'newApplication-newtab">Open new tab:</label><input class="checkbox ' + rand + 'newApplication-value" id="' + rand + 'newApplication-newtab" name="newApplication-newtab" type="checkbox"></div>' +
             '<div><label for="' + rand + 'newApplication-dd">Put in dropdown:</label><input class="checkbox ' + rand + 'newApplication-value" id="' + rand + 'newApplication-dd" name="newApplication-dd" type="checkbox"></div>' +
             '<button type="button" class="removeButton btn btn-danger btn-xs" value="Remove" id="remove-' + rand + 'newApplication">Remove<meta class="newAppRand" value="' + rand + '"></button><meta class="newAppRand" value="' + rand + '"></div></div>');
         initIconPicker('.' + rand + 'newApplication-value[name=' + rand + 'newApplication-icon]');
@@ -170,14 +172,9 @@ function settingsEventHandlers() {
         }
     });
 
-    //On Submit handler
-    var options = {
-        url: 'muximux.php',
-        type: 'post',
-        success: showResponse
-    };
     $('#settingsSubmit').click(function (event) {
         event.preventDefault();
+        var setname = $("input#setInput").attr('value');
         $('.newApp').remove(); //Remove any new app that isn't filled out.
         $('.checkbox,.radio').each(function () {
             if (!$(this).prop('checked')) {
@@ -185,6 +182,13 @@ function settingsEventHandlers() {
                 $('<input type="hidden" name="' + name + '" value="false">').appendTo($(this));
             }
         });
+  
+        //On Submit handler
+        var options = {
+            url: 'muximux.php',
+            type: 'post',
+            success: showResponse
+        };
         $('.appName').removeAttr('disabled');
         $("form").ajaxSubmit(options);
     });

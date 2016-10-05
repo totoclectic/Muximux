@@ -15,15 +15,20 @@ require 'muximux.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Muximux - Application Management Console">
-    <link rel="shortcut icon" href="favicon.ico" type="image/ico"/>
-    <link rel="stylesheet" type="text/css" href="css/cssreset.min.css"> <!-- Yahoo YUI HTML5 CSS reset -->
-    <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="css/bootstrap-iconpicker.min.css"/>
-    <link rel="stylesheet" href="css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="css/font-pt_sans.css"> <!-- Font -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <script src="js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo URLADDR;?>images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="<?php echo URLADDR;?>images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?php echo URLADDR;?>images/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="<?php echo URLADDR;?>images/favicon/manifest.json">
+    <link rel="mask-icon" href="<?php echo URLADDR;?>images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff"> 
+    <link rel="stylesheet" type="text/css" href="<?php echo URLADDR;?>css/cssreset.min.css"> <!-- Yahoo YUI HTML5 CSS reset -->
+    <link rel="stylesheet" href="<?php echo URLADDR;?>css/bootstrap.min.css"> <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="<?php echo URLADDR;?>css/bootstrap-iconpicker.min.css"/>
+    <link rel="stylesheet" href="<?php echo URLADDR;?>css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="<?php echo URLADDR;?>css/font-pt_sans.css"> <!-- Font -->
+    <link rel="stylesheet" href="<?php echo URLADDR;?>css/style.css"> <!-- Resource style -->
+    <link rel="stylesheet" href="<?php echo URLADDR;?>css/jquery-ui.min.css">
+    <script src="<?php echo URLADDR;?>js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     <title><?php echo getTitle(); ?></title>
 </head>
 
@@ -146,14 +151,14 @@ require 'muximux.php';
 </div>
 <div id="updateContainer"></div>
 
-<script src="js/jquery-2.2.0.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/jquery.form.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/iconset-fontawesome-4.2.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-iconpicker.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript" src="js/functions.js"></script>
+<script src="<?php echo URLADDR;?>js/jquery-2.2.0.min.js"></script>
+<script src="<?php echo URLADDR;?>js/jquery-ui.min.js"></script>
+<script src="<?php echo URLADDR;?>js/jquery.form.min.js"></script>
+<script src="<?php echo URLADDR;?>js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo URLADDR;?>js/iconset-fontawesome-4.2.0.min.js"></script>
+<script type="text/javascript" src="<?php echo URLADDR;?>js/bootstrap-iconpicker.min.js"></script>
+<script type="text/javascript" src="<?php echo URLADDR;?>js/main.js"></script>
+<script type="text/javascript" src="<?php echo URLADDR;?>js/functions.js"></script>
 <?php if ($upgrade) echo "<script type=\"text/javascript\">$('#upgradeModal').modal();</script>"; ?>
 <?php
 $config = new Config_Lite(CONFIG);
