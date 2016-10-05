@@ -13,6 +13,10 @@ Primary style
     content: '';
 }
 
+*:focus {
+    outline: none;
+}
+
 body {
     font-size: 0px;
     font-family: "PT Sans", sans-serif;
@@ -68,6 +72,11 @@ iframe {
 Main components
 
 -------------------------------- */
+
+.delay {
+    visibility: hidden;
+}
+
 .constrain {
     overflow: hidden;
 }
@@ -85,6 +94,42 @@ Main components
     box-shadow: inset 0 -2px 3px rgba(203, 196, 130, 0.06);
     z-index: 1000;
 }
+
+#set-select {
+    font-size: 14px !important;
+    margin: 10px 5px 0 5px;
+    float: right;
+}
+
+.styled-select {
+    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 90% -5px;
+    text-indent: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    height: 20px;
+    width: 110px;
+    color: #9397a0;
+    background-color: #484c58;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-overflow: '';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+select::-ms-expand { 
+    display: none;
+}
+
+.fa-lg {
+    padding-right: 2px;
+}
+
 
 @media only screen and (min-width: 0px) {
     .cd-tabs nav {
@@ -160,7 +205,7 @@ Main components
         width: 100%;
         text-align: center;
         font-size: 1.6rem;
-        padding: 0 1.5em 0 1.5em;
+        padding: 0 1em 0 1em;
     }
 
     .cd-tabs-navigation a.selected:not(#reload) {

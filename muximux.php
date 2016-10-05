@@ -14,10 +14,8 @@ for ($i = count($tempPath2); $i < count($tempPath1); $i++)
 
 $urladdr = $_SERVER['HTTP_HOST'] . implode('/', $tempPath3);
 
-if ($urladdr{strlen($urladdr) - 1}== '/')
-    define('URLADDR', 'http://' . $urladdr);
-else
-    define('URLADDR', 'http://' . $urladdr . '/');
+if ($urladdr{strlen($urladdr) - 1}== '/')  define('URLADDR', 'http://' . $urladdr);
+else  define('URLADDR', 'http://' . $urladdr . '/');
 
 unset($tempPath1, $tempPath2, $tempPath3, $urladdr);
 
@@ -218,6 +216,23 @@ function parse_ini()
 
 function menuItems()
 {
+    // sets menu
+
+    $sets = array_filter(scandir('sets/'), function($item) {
+        return !is_dir('sets/' . $item);
+    });
+    $menuSets = '<select id="set-select" class="styled-select delay">';
+
+    foreach($sets as $setFile) {
+
+        $setName = substr($setFile, 4, -8);
+        $menuSets .= $setName . " ";
+        $menuSets .= '<option value="' . URLADDR . $setName . '">' . $setName . '</option>';
+    }
+
+    $menuSets .= '</select>';
+
+    // items menu
     $config = new Config_Lite(CONFIG);
     $standardmenu = "";
     $dropdownmenu = "";
@@ -253,11 +268,11 @@ function menuItems()
         <a id=\"hamburger\"><span class=\"fa fa-bars fa-lg\"></span></a>
         <ul class=\"drop-nav\">\n" . $dropdownmenu .
             "</ul></li></ul>\n\n\n<ul class=\"cd-tabs-navigation\"><nav>" .
-            $standardmenu .
+            $standardmenu . $menuSets .
             "<li><a id=\"reload\" title=\"Double click your app in the menu, or press this button to refresh the current app.\"><span class=\"fa fa-refresh fa-lg\"></span></a></li></ul></nav>";
     } else {
         $item = "<nav><ul class=\"cd-tabs-navigation\">" .
-            $standardmenu .
+            $standardmenu . $menuSets . 
             "<li><a id=\"reload\" title=\"Double click your app in the menu, or press this button to refresh the current app.\"><span class=\"fa fa-refresh fa-lg\"></span></a></li></ul></nav>";
     }
     return $item;

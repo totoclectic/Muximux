@@ -1,4 +1,7 @@
 jQuery(document).ready(function ($) {
+
+    $(".delay").css({"visibility":"visible"});
+
     // Custom function to do case-insensitive selector matching
     $.extend($.expr[":"], {
         "containsInsensitive": function(elem, i, match, array) {
@@ -72,6 +75,14 @@ jQuery(document).ready(function ($) {
     $('#reload').on('click', function () {
         var selectedFrame = $('.cd-tabs-content').find('.selected').children('iframe');
         selectedFrame.attr('src', selectedFrame.attr('src'));
+    });
+
+
+    // Bind change event to set select
+    $('#set-select').on('change', function () {
+        var set = $(this).val();
+        if (set) { window.location = set; }
+        return false;
     });
 
     // When settings modal is open, set title to "Settings"

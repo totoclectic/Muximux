@@ -159,6 +159,7 @@ require 'muximux.php';
 <script type="text/javascript" src="<?php echo URLADDR;?>js/bootstrap-iconpicker.min.js"></script>
 <script type="text/javascript" src="<?php echo URLADDR;?>js/main.js"></script>
 <script type="text/javascript" src="<?php echo URLADDR;?>js/functions.js"></script>
+<script type="text/javascript">jQuery(document).ready(function ($) { <?php print "$('#set-select').val('".URLADDR.SET."');"; ?> });</script>
 <?php if ($upgrade) echo "<script type=\"text/javascript\">$('#upgradeModal').modal();</script>"; ?>
 <?php
 $config = new Config_Lite(CONFIG);
